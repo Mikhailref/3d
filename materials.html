@@ -1,314 +1,117 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Филаменты и Пластики для 3D-Печати</title>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-orange: #f97316;
-            --accent-blue: #38bdf8;
-            --border-color: #334155;
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-color: #f8fafc;
+            --text-muted: #94a3b8; --accent-orange: #f97316; --accent-blue: #38bdf8; --border-color: #334155;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        /* Навигация */
-        header {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--accent-orange);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo span {
-            color: var(--accent-blue);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent-orange);
-        }
-
-        /* Заголовок страницы */
-        .page-header {
-            max-width: 1100px;
-            margin: 3rem auto 2rem;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header h1 span {
-            color: var(--accent-orange);
-        }
-
-        .page-header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        /* Сетка материалов */
-        .materials-grid {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .material-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .material-card h2 {
-            color: var(--accent-blue);
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .material-card .badge {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: var(--accent-blue);
-            font-size: 0.85rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            border: 1px solid var(--accent-blue);
-        }
-
-        .material-card p {
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-        }
-
-        .specs-list {
-            list-style: none;
-            margin-bottom: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            padding-top: 1rem;
-        }
-
-        .specs-list li {
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-
-        .specs-list strong {
-            color: var(--text-color);
-        }
-
-        .pros-cons {
-            background-color: #0f172a;
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            margin-top: auto;
-        }
-
-        .pros-cons div {
-            margin-bottom: 0.5rem;
-        }
-
-        .pros-cons div:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Советы по сушке */
-        .drying-section {
-            max-width: 1100px;
-            margin: 4rem auto 2rem;
-            padding: 0 2rem;
-        }
-
-        .drying-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-        }
-
-        .drying-card h2 {
-            color: var(--accent-orange);
-            margin-bottom: 1rem;
-        }
-
-        .drying-card p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        /* Подвал */
-        footer {
-            background-color: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        header { background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+        nav { max-width: 1100px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: bold; color: var(--accent-orange); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .logo span { color: var(--accent-blue); }
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+        .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 500; transition: color 0.2s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-orange); }
+        .lang-btn { background-color: var(--border-color); color: var(--text-color); border: 1px solid var(--accent-blue); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .lang-btn:hover { background-color: var(--accent-blue); color: var(--bg-color); }
+        .page-header { max-width: 1100px; margin: 3rem auto 2rem; padding: 0 2rem; text-align: center; }
+        .page-header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .page-header h1 span { color: var(--accent-orange); }
+        .page-header p { color: var(--text-muted); font-size: 1.1rem; }
+        .materials-grid { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .material-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; display: flex; flex-direction: column; }
+        .material-card h2 { color: var(--accent-blue); font-size: 1.6rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .badge { background-color: rgba(56, 189, 248, 0.1); color: var(--accent-blue); font-size: 0.85rem; padding: 0.2rem 0.6rem; border-radius: 20px; border: 1px solid var(--accent-blue); }
+        .material-card p { color: var(--text-muted); margin-bottom: 1.5rem; }
+        .specs-list { list-style: none; margin-bottom: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem; }
+        .specs-list li { margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.95rem; }
+        .pros-cons { background-color: #0f172a; padding: 1rem; border-radius: 8px; font-size: 0.9rem; margin-top: auto; color: var(--text-muted); }
+        .pros-cons div { margin-bottom: 0.5rem; }
+        footer { background-color: var(--card-bg); border-top: 1px solid var(--border-color); text-align: center; padding: 2rem; margin-top: 4rem; color: var(--text-muted); font-size: 0.9rem; }
+        @media (max-width: 768px) { nav { flex-direction: column; gap: 1rem; } .nav-links { flex-wrap: wrap; justify-content: center; } }
     </style>
 </head>
 <body>
 
-    <!-- Шапка сайта -->
     <header>
         <nav>
-            <a href="index.html" class="logo">🖨️ 3D-Печать <span>& FreeCAD</span></a>
-            <ul class="nav-links">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="printing.html">3D-Печать</a></li>
-                <li><a href="freecad.html">FreeCAD</a></li>
-                <li><a href="materials.html" class="active">Материалы</a></li>
-                <li><a href="gallery.html">Галерея</a></li>
-            </ul>
+            <a href="index.html" class="logo">🖨️ 3D-Printing <span>& FreeCAD</span></a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html" data-ru="Главная" data-en="Home">Главная</a></li>
+                    <li><a href="printing.html" data-ru="3D-Печать" data-en="3D Printing">3D-Печать</a></li>
+                    <li><a href="freecad.html" data-ru="FreeCAD" data-en="FreeCAD">FreeCAD</a></li>
+                    <li><a href="materials.html" class="active" data-ru="Материалы" data-en="Materials">Материалы</a></li>
+                    <li><a href="gallery.html" data-ru="Галерея" data-en="Gallery">Галерея</a></li>
+                </ul>
+                <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
+            </div>
         </nav>
     </header>
 
-    <!-- Заголовок -->
     <div class="page-header">
-        <h1>Справочник по <span>филаментам</span></h1>
-        <p>Выбирайте правильный материал под ваши задачи: от декоративных моделей до нагруженных механизмов.</p>
+        <h1 data-ru="Справочник по &lt;span&gt;филаментам&lt;/span&gt;" data-en="Filament &lt;span&gt;Guide&lt;/span&gt;">Справочник по <span>филаментам</span></h1>
+        <p data-ru="Выбирайте правильный материал под ваши задачи." data-en="Choose the right material for your tasks.">Выбирайте правильный материал под ваши задачи.</p>
     </div>
 
-    <!-- Карточки пластиков -->
     <main class="materials-grid">
-        
-        <!-- PLA -->
         <div class="material-card">
-            <h2>PLA <span class="badge">Базовый</span></h2>
-            <p>Самый популярный и простой в печати биопластик на основе кукурузы или сахарного тростника.</p>
+            <h2>PLA <span class="badge" data-ru="Базовый" data-en="Basic">Базовый</span></h2>
+            <p data-ru="Самый популярный и простой в печати биопластик." data-en="The most popular and easiest to print bioplastic.">Самый популярный и простой в печати биопластик.</p>
             <ul class="specs-list">
-                <li><strong>Сопло:</strong> 190°C – 210°C</li>
-                <li><strong>Стол:</strong> 50°C – 60°C</li>
-                <li><strong>Обдув:</strong> 100%</li>
-                <li><strong>Термостойкость:</strong> до 55°C</li>
+                <li data-ru="&lt;strong&gt;Сопло:&lt;/strong&gt; 190°C – 210°C" data-en="&lt;strong&gt;Nozzle:&lt;/strong&gt; 190°C – 210°C"><strong>Сопло:</strong> 190°C – 210°C</li>
+                <li data-ru="&lt;strong&gt;Стол:&lt;/strong&gt; 50°C – 60°C" data-en="&lt;strong&gt;Bed:&lt;/strong&gt; 50°C – 60°C"><strong>Стол:</strong> 50°C – 60°C</li>
             </ul>
             <div class="pros-cons">
-                <div>✅ Отсутствие запаха, легкая печать, красивый глянец.</div>
-                <div>❌ Хрупкий, размягчается на солнце/в машине.</div>
+                <div data-ru="✅ Отсутствие запаха, легкая печать." data-en="✅ No odor, easy printing.">✅ Отсутствие запаха, легкая печать.</div>
+                <div data-ru="❌ Хрупкий, боится жары." data-en="❌ Brittle, softens in heat.">❌ Хрупкий, боится жары.</div>
             </div>
         </div>
 
-        <!-- PETG -->
         <div class="material-card">
-            <h2>PETG <span class="badge">Универсальный</span></h2>
-            <p>Отличный выбор для функциональных деталей, сочетающий прочность ABS и простоту PLA.</p>
+            <h2>PETG <span class="badge" data-ru="Универсальный" data-en="Versatile">Универсальный</span></h2>
+            <p data-ru="Прочный пластик для функциональных деталей." data-en="Durable plastic for functional parts.">Прочный пластик для функциональных деталей.</p>
             <ul class="specs-list">
-                <li><strong>Сопло:</strong> 230°C – 250°C</li>
-                <li><strong>Стол:</strong> 70°C – 80°C</li>
-                <li><strong>Обдув:</strong> 30% – 50%</li>
-                <li><strong>Термостойкость:</strong> до 75°C</li>
+                <li data-ru="&lt;strong&gt;Сопло:&lt;/strong&gt; 230°C – 250°C" data-en="&lt;strong&gt;Nozzle:&lt;/strong&gt; 230°C – 250°C"><strong>Сопло:</strong> 230°C – 250°C</li>
+                <li data-ru="&lt;strong&gt;Стол:&lt;/strong&gt; 70°C – 80°C" data-en="&lt;strong&gt;Bed:&lt;/strong&gt; 70°C – 80°C"><strong>Стол:</strong> 70°C – 80°C</li>
             </ul>
             <div class="pros-cons">
-                <div>✅ Высокая межслойная адгезия, ударопрочность, химическая стойкость.</div>
-                <div>❌ Склонен к образованию соплей (стрингингу).</div>
+                <div data-ru="✅ Ударопрочность, износостойкость." data-en="✅ Impact resistant, durable.">✅ Ударопрочность, износостойкость.</div>
+                <div data-ru="❌ Тянется нитями." data-en="❌ Stringing prone.">❌ Тянется нитями.</div>
             </div>
         </div>
-
-        <!-- ABS / ASA -->
-        <div class="material-card">
-            <h2>ABS / ASA <span class="badge">Инженерный</span></h2>
-            <p>Прочные пластики для высоконагруженных деталей и наружного применения.</p>
-            <ul class="specs-list">
-                <li><strong>Сопло:</strong> 240°C – 260°C</li>
-                <li><strong>Стол:</strong> 90°C – 110°C</li>
-                <li><strong>Камера:</strong> Требуется закрытая</li>
-                <li><strong>Термостойкость:</strong> до 100°C</li>
-            </ul>
-            <div class="pros-cons">
-                <div>✅ Легко шлифуется, поддается обработке ацетоном.</div>
-                <div>❌ Сильная усадка, запах при печати.</div>
-            </div>
-        </div>
-
     </main>
 
-    <!-- Раздел сушки -->
-    <section class="drying-section">
-        <div class="drying-card">
-            <h2>💧 Сушка филамента — залог идеальной печати</h2>
-            <p>Почти все пластики (особенно PETG, TPU и Nylon) впитывают влагу из воздуха. Влажный филамент закипает в сопле, из-за чего появляются щелчки, нити и пузыри на стенках модели.</p>
-            <p><strong>Рекомендация:</strong> Используйте сушилку для филамента перед важной печатью. PETG сушат 4–6 часов при температуре 60°C, PLA — при 45–50°C.</p>
-        </div>
-    </section>
-
-    <!-- Подвал -->
     <footer>
-        <p>© 2026 3D-Печать & FreeCAD Моделирование.</p>
+        <p data-ru="© 2026 3D-Печать & FreeCAD Моделирование." data-en="© 2026 3D Printing & FreeCAD Modeling.">© 2026 3D-Печать & FreeCAD Моделирование.</p>
     </footer>
 
+    <script>
+        function toggleLanguage() {
+            const html = document.getElementById('html-root');
+            const btn = document.getElementById('langToggle');
+            const currentLang = html.getAttribute('lang');
+            const newLang = currentLang === 'ru' ? 'en' : 'ru';
+            html.setAttribute('lang', newLang);
+            btn.textContent = newLang === 'ru' ? 'EN' : 'RU';
+            localStorage.setItem('site-lang', newLang);
+            document.querySelectorAll('[data-ru]').forEach(el => { el.innerHTML = el.getAttribute(`data-${newLang}`); });
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('site-lang') || 'ru';
+            if (savedLang === 'en') {
+                document.getElementById('html-root').setAttribute('lang', 'en');
+                document.getElementById('langToggle').textContent = 'RU';
+                document.querySelectorAll('[data-ru]').forEach(el => { el.innerHTML = el.getAttribute('data-en'); });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,278 +1,115 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreeCAD — Параметрическое моделирование</title>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-orange: #f97316;
-            --accent-blue: #38bdf8;
-            --border-color: #334155;
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-color: #f8fafc;
+            --text-muted: #94a3b8; --accent-orange: #f97316; --accent-blue: #38bdf8; --border-color: #334155;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        /* Навигация */
-        header {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--accent-orange);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo span {
-            color: var(--accent-blue);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent-orange);
-        }
-
-        /* Заголовок страницы */
-        .page-header {
-            max-width: 1100px;
-            margin: 3rem auto 2rem;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header h1 span {
-            color: var(--accent-blue);
-        }
-
-        .page-header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        /* Основной контент */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-
-        .content-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .content-card h2 {
-            color: var(--accent-orange);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .content-card p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .content-card ul {
-            margin-left: 1.5rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .content-card li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Боковая панель (Sidebar) */
-        .sidebar-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .sidebar-card h3 {
-            color: var(--accent-blue);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .code-snippet {
-            background-color: #0f172a;
-            border: 1px solid var(--border-color);
-            padding: 0.8rem;
-            border-radius: 6px;
-            font-family: monospace;
-            color: var(--accent-blue);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Подвал */
-        footer {
-            background-color: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        header { background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+        nav { max-width: 1100px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: bold; color: var(--accent-orange); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .logo span { color: var(--accent-blue); }
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+        .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 500; transition: color 0.2s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-orange); }
+        .lang-btn { background-color: var(--border-color); color: var(--text-color); border: 1px solid var(--accent-blue); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .lang-btn:hover { background-color: var(--accent-blue); color: var(--bg-color); }
+        .page-header { max-width: 1100px; margin: 3rem auto 2rem; padding: 0 2rem; text-align: center; }
+        .page-header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .page-header h1 span { color: var(--accent-blue); }
+        .page-header p { color: var(--text-muted); font-size: 1.1rem; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+        .content-card, .sidebar-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        .content-card h2 { color: var(--accent-orange); margin-bottom: 1rem; font-size: 1.5rem; }
+        .content-card p, .content-card ul, .sidebar-card p { color: var(--text-muted); margin-bottom: 1rem; }
+        .content-card ul { margin-left: 1.5rem; }
+        .content-card li, .sidebar-card li { margin-bottom: 0.5rem; color: var(--text-muted); }
+        .sidebar-card h3 { color: var(--accent-blue); margin-bottom: 1rem; font-size: 1.2rem; }
+        footer { background-color: var(--card-bg); border-top: 1px solid var(--border-color); text-align: center; padding: 2rem; margin-top: 4rem; color: var(--text-muted); font-size: 0.9rem; }
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } nav { flex-direction: column; gap: 1rem; } .nav-links { flex-wrap: wrap; justify-content: center; } }
     </style>
 </head>
 <body>
 
-    <!-- Шапка сайта и меню -->
     <header>
         <nav>
-            <a href="index.html" class="logo">🖨️ 3D-Печать <span>& FreeCAD</span></a>
-            <ul class="nav-links">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="printing.html">3D-Печать</a></li>
-                <li><a href="freecad.html" class="active">FreeCAD</a></li>
-                <li><a href="materials.html">Материалы</a></li>
-                <li><a href="gallery.html">Галерея</a></li>
-            </ul>
+            <a href="index.html" class="logo">🖨️ 3D-Printing <span>& FreeCAD</span></a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html" data-ru="Главная" data-en="Home">Главная</a></li>
+                    <li><a href="printing.html" data-ru="3D-Печать" data-en="3D Printing">3D-Печать</a></li>
+                    <li><a href="freecad.html" class="active" data-ru="FreeCAD" data-en="FreeCAD">FreeCAD</a></li>
+                    <li><a href="materials.html" data-ru="Материалы" data-en="Materials">Материалы</a></li>
+                    <li><a href="gallery.html" data-ru="Галерея" data-en="Gallery">Галерея</a></li>
+                </ul>
+                <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
+            </div>
         </nav>
     </header>
 
-    <!-- Заголовок раздела -->
     <div class="page-header">
-        <h1>Проектирование во <span>FreeCAD</span></h1>
-        <p>Изучаем параметрический подход, Top-Down дизайн и создание функциональных деталей.</p>
+        <h1 data-ru="Проектирование во &lt;span&gt;FreeCAD&lt;/span&gt;" data-en="Designing in &lt;span&gt;FreeCAD&lt;/span&gt;">Проектирование во <span>FreeCAD</span></h1>
+        <p data-ru="Изучаем параметрический подход, Top-Down дизайн и создание функциональных деталей." data-en="Exploring the parametric approach, Top-Down design, and creating functional parts.">Изучаем параметрический подход, Top-Down дизайн и создание функциональных деталей.</p>
     </div>
 
-    <!-- Основной блок -->
     <main class="container">
-        
-        <!-- Статьи -->
         <section>
             <article class="content-card">
-                <h2>1. Почему именно FreeCAD?</h2>
-                <p>FreeCAD — это мощная открытая (Open Source) САПР-система с полноценным параметрическим ядром. В отличие от полигональных редакторов, здесь все размеры и привязки задаются формулами и ограничениями, что позволяет легко менять геометрию детали на любом этапе.</p>
+                <h2 data-ru="1. Почему именно FreeCAD?" data-en="1. Why FreeCAD?">1. Почему именно FreeCAD?</h2>
+                <p data-ru="FreeCAD — это мощная открытая САПР-система с полноценным параметрическим ядром." data-en="FreeCAD is a powerful open-source parametric CAD system.">FreeCAD — это мощная открытая САПР-система с полноценным параметрическим ядром.</p>
                 <ul>
-                    <li>Полный контроль над размерами через эскизы (Sketcher).</li>
-                    <li>Идеально подходит для разработки механических узлов, корпусов и крепежа под 3D-печать.</li>
-                    <li>Поддержка современных методологий проектирования (Top-Down).</li>
+                    <li data-ru="Полный контроль над размерами через эскизы." data-en="Full control over dimensions via sketches.">Полный контроль над размерами через эскизы.</li>
+                    <li data-ru="Идеально для разработки механических узлов под 3D-печать." data-en="Ideal for mechanical assemblies designed for 3D printing.">Идеально для разработки механических узлов под 3D-печать.</li>
                 </ul>
             </article>
 
             <article class="content-card">
-                <h2>2. Методология Top-Down и Master Sketch</h2>
-                <p>При создании сложных сборных или многокомпонентных изделий прямой подход (рисовать детали по отдельности) часто приводит к ошибкам стыковки.</p>
-                <ul>
-                    <li><strong>Master Sketch (Главный эскиз):</strong> создание единого эскиза-шаблона со всеми ключевыми размерами и базовыми линиями будущего изделия.</li>
-                    <li><strong>SubShapeBinders:</strong> инструмент для привязки геометрии новых тел к элементам мастер-эскиза или соседних деталей.</li>
-                    <li><strong>VarSets:</strong> удобное хранение глобальных параметров (например, толщины стенки, диаметра винтов) в виде переменных.</li>
-                </ul>
-            </article>
-
-            <article class="content-card">
-                <h2>3. Полезные советы по моделированию для 3D-печати</h2>
-                <p>Чтобы спроектированная деталь легко печаталась и собиралась:</p>
-                <ul>
-                    <li>Всегда закладывайте технологические зазоры (tolerance) в отверстия под оси и болты (обычно 0.2–0.3 мм).</li>
-                    <li>Используйте фаски (Chamfer) и скругления (Fillet) для снижения концентрации напряжений в углах.</li>
-                    <li>Проверяйте геометрию на отсутствие самопересечений перед экспортом в STL/STEP.</li>
-                </ul>
+                <h2 data-ru="2. Методология Top-Down и Master Sketch" data-en="2. Top-Down and Master Sketch Methodology">2. Методология Top-Down и Master Sketch</h2>
+                <p data-ru="Создание единого эскиза-шаблона со всеми ключевыми размерами изделия." data-en="Creating a single template sketch with all key product dimensions.">Создание единого эскиза-шаблона со всеми ключевыми размерами изделия.</p>
             </article>
         </section>
 
-        <!-- Боковая панель -->
         <aside>
             <div class="sidebar-card">
-                <h3>📌 Основные верстаки</h3>
-                <p>Для создания деталей под печать чаще всего используются:</p>
+                <h3 data-ru="📌 Основные верстаки" data-en="📌 Main Workbenches">📌 Основные верстаки</h3>
                 <ul>
-                    <li><strong>Part Design</strong> — моделирование тел.</li>
-                    <li><strong>Sketcher</strong> — создание 2D эскизов.</li>
-                    <li><strong>Assembly (ASM)</strong> — сборка узлов.</li>
+                    <li data-ru="Part Design — моделирование тел" data-en="Part Design — solid modeling">Part Design — моделирование тел</li>
+                    <li data-ru="Sketcher — создание 2D эскизов" data-en="Sketcher — 2D sketching">Sketcher — создание 2D эскизов</li>
                 </ul>
             </div>
-
-            <div class="sidebar-card">
-                <h3>⚙️ Экспорт для слайсера</h3>
-                <p>Лучший формат для передачи модели в слайсер (например, OrcaSlicer) — это <strong>STEP</strong> (сохраняет точные кривые) или качественный <strong>STL</strong> с высокой детализацией.</p>
-            </div>
         </aside>
-
     </main>
 
-    <!-- Подвал -->
     <footer>
-        <p>© 2026 3D-Печать & FreeCAD Моделирование.</p>
+        <p data-ru="© 2026 3D-Печать & FreeCAD Моделирование." data-en="© 2026 3D Printing & FreeCAD Modeling.">© 2026 3D-Печать & FreeCAD Моделирование.</p>
     </footer>
 
+    <script>
+        function toggleLanguage() {
+            const html = document.getElementById('html-root');
+            const btn = document.getElementById('langToggle');
+            const currentLang = html.getAttribute('lang');
+            const newLang = currentLang === 'ru' ? 'en' : 'ru';
+            html.setAttribute('lang', newLang);
+            btn.textContent = newLang === 'ru' ? 'EN' : 'RU';
+            localStorage.setItem('site-lang', newLang);
+            document.querySelectorAll('[data-ru]').forEach(el => { el.innerHTML = el.getAttribute(`data-${newLang}`); });
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('site-lang') || 'ru';
+            if (savedLang === 'en') {
+                document.getElementById('html-root').setAttribute('lang', 'en');
+                document.getElementById('langToggle').textContent = 'RU';
+                document.querySelectorAll('[data-ru]').forEach(el => { el.innerHTML = el.getAttribute('data-en'); });
+            }
+        });
+    </script>
 </body>
 </html>
