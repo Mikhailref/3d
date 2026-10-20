@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шпаргалка и Визуализация Деталей</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-orange: #f97316;
+            --accent-blue: #38bdf8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+
+        header { background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+        nav { max-width: 1100px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+
+        .logo { font-size: 1.4rem; font-weight: bold; color: var(--accent-orange); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .logo span { color: var(--accent-blue); }
+
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+        .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 500; transition: color 0.2s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-orange); }
+
+        .lang-btn {
+            background-color: var(--border-color);
+            color: var(--text-color);
+            border: 1px solid var(--accent-blue);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .lang-btn:hover { background-color: var(--accent-blue); color: var(--bg-color); }
+
+        .page-header { max-width: 1100px; margin: 3rem auto 2rem; padding: 0 2rem; text-align: center; }
+        .page-header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .page-header h1 span { color: var(--accent-blue); }
+        .page-header p { color: var(--text-muted); font-size: 1.1rem; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        .full-width { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+        .card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; }
+        .card h2 { color: var(--accent-orange); font-size: 1.4rem; margin-bottom: 1rem; }
+
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        canvas {
+            background-color: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            max-width: 100%;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: var(--accent-blue);
+            color: var(--bg-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.9; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.95rem; }
+        th { color: var(--accent-blue); }
+
+        footer { background-color: var(--card-bg); border-top: 1px solid var(--border-color); text-align: center; padding: 2rem; margin-top: 4rem; color: var(--text-muted); font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+            nav { flex-direction: column; gap: 1rem; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">🖨️ 3D-Printing <span>& FreeCAD</span></a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html" data-ru="Главная" data-en="Home">Главная</a></li>
+                    <li><a href="printing.html" data-ru="3D-Печать" data-en="3D Printing">3D-Печать</a></li>
+                    <li><a href="freecad.html" data-ru="FreeCAD" data-en="FreeCAD">FreeCAD</a></li>
+                    <li><a href="materials.html" data-ru="Материалы" data-en="Materials">Материалы</a></li>
+                    <li><a href="gallery.html" data-ru="Галерея" data-en="Gallery">Галерея</a></li>
+                    <li><a href="cheatsheet.html" class="active" data-ru="Шпаргалка" data-en="Cheat Sheet">Шпаргалка</a></li>
+                </ul>
+                <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1 data-ru="Интерактивная &lt;span&gt;Шпаргалка Деталей&lt;/span&gt;" data-en="Interactive &lt;span&gt;Parts Cheat Sheet&lt;/span&gt;">Интерактивная <span>Шпаргалка Деталей</span></h1>
+        <p data-ru="Визуальные модели механизмов и таблица допусков под 3D-печать." data-en="Visual mechanism models and 3D printing tolerance table.">Визуальные модели механизмов и таблица допусков под 3D-печать.</p>
+    </div>
+
+    <main class="container">
+        <!-- Интерактивный подшипник -->
+        <section class="card">
+            <h2 data-ru="⚙️ Подшипник качения" data-en="⚙️ Ball Bearing">⚙️ Подшипник качения</h2>
+            <div class="canvas-container">
+                <canvas id="bearingCanvas" width="280" height="260"></canvas>
+                <div class="controls">
+                    <button class="btn" onclick="toggleBearingSpin()" data-ru="Старт / Стоп" data-en="Start / Stop">Старт / Стоп</button>
+                    <input type="range" id="bearingSpeed" min="0" max="0.1" step="0.005" value="0.02">
+                </div>
+            </div>
+        </section>
+
+        <!-- Интерактивный болт и гайка -->
+        <section class="card">
+            <h2 data-ru="🔩 Болт и Гайка (Резьба)" data-en="🔩 Bolt and Nut (Thread)">🔩 Болт и Гайка (Резьба)</h2>
+            <div class="canvas-container">
+                <canvas id="boltCanvas" width="280" height="260"></canvas>
+                <div class="controls">
+                    <label style="font-size: 0.9rem; color: var(--text-muted);" data-ru="Затяжка:" data-en="Tightening:">Затяжка:</label>
+                    <input type="range" id="nutSlider" min="0" max="1" step="0.01" value="0.5">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="full-width">
+        <section class="card">
+            <h2 data-ru="📐 Допуски и зазоры под 3D-печать" data-en="📐 Tolerances for 3D Printing">📐 Допуски и зазоры под 3D-печать</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem;" data-ru="Зазоры при проектировании сопрягаемых деталей во FreeCAD:" data-en="Clearances for mating parts designed in FreeCAD:">Зазоры при проектировании сопрягаемых деталей во FreeCAD:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th data-ru="Тип соединения" data-en="Fit Type">Тип соединения</th>
+                        <th data-ru="Зазор на сторону" data-en="Clearance/Side">Зазор на сторону</th>
+                        <th data-ru="Применение" data-en="Application">Применение</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-ru="Запрессовка (Tight Fit)" data-en="Press Fit">Запрессовка</td>
+                        <td>0.00 – 0.05 мм</td>
+                        <td data-ru="Подшипники, втулки" data-en="Bearings, bushings">Подшипники, втулки</td>
+                    </tr>
+                    <tr>
+                        <td data-ru="Плотно (Snug Fit)" data-en="Snug Fit">Плотно</td>
+                        <td>0.10 – 0.15 мм</td>
+                        <td data-ru="Крышки, фиксаторы" data-en="Covers, latches">Крышки, фиксаторы</td>
+                    </tr>
+                    <tr>
+                        <td data-ru="Подвижное (Free Fit)" data-en="Free Fit">Подвижное</td>
+                        <td>0.20 – 0.30 мм</td>
+                        <td data-ru="Оси, валы, резьбовые соединения" data-en="Axes, shafts, threaded connections">Оси, валы, резьбовые соединения</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <footer>
+        <p data-ru="© 2026 3D-Печать & FreeCAD Моделирование." data-en="© 2026 3D Printing & FreeCAD Modeling.">© 2026 3D-Печать & FreeCAD Моделирование.</p>
+    </footer>
+
+    <script>
+        // --- 1. Анимация подшипника ---
+        const bCanvas = document.getElementById('bearingCanvas');
+        const bCtx = bCanvas.getContext('2d');
+        const bearingSpeedInput = document.getElementById('bearingSpeed');
+
+        let bAngle = 0;
+        let isBearingSpinning = true;
+
+        const bCx = bCanvas.width / 2;
+        const bCy = bCanvas.height / 2;
+        const outerRadius = 110;
+        const innerRadius = 50;
+        const ballRadius = 22;
+        const midRadius = (outerRadius + innerRadius) / 2;
+        const numBalls = 7;
+
+        function drawBearing() {
+            bCtx.clearRect(0, 0, bCanvas.width, bCanvas.height);
+
+            // Внешнее кольцо
+            bCtx.beginPath();
+            bCtx.arc(bCx, bCy, outerRadius, 0, Math.PI * 2);
+            bCtx.arc(bCx, bCy, outerRadius - 14, 0, Math.PI * 2, true);
+            bCtx.fillStyle = '#334155';
+            bCtx.fill();
+            bCtx.strokeStyle = '#38bdf8';
+            bCtx.lineWidth = 2;
+            bCtx.stroke();
+
+            // Внутреннее кольцо
+            bCtx.beginPath();
+            bCtx.arc(bCx, bCy, innerRadius + 14, 0, Math.PI * 2);
+            bCtx.arc(bCx, bCy, innerRadius, 0, Math.PI * 2, true);
+            bCtx.fillStyle = '#334155';
+            bCtx.fill();
+            bCtx.stroke();
+
+            // Шарики
+            for (let i = 0; i < numBalls; i++) {
+                const currentAngle = bAngle + (i * Math.PI * 2 / numBalls);
+                const bx = bCx + Math.cos(currentAngle) * midRadius;
+                const by = bCy + Math.sin(currentAngle) * midRadius;
+
+                bCtx.beginPath();
+                bCtx.arc(bx, by, ballRadius, 0, Math.PI * 2);
+                bCtx.fillStyle = '#f97316';
+                bCtx.fill();
+                bCtx.strokeStyle = '#f8fafc';
+                bCtx.lineWidth = 1.5;
+                bCtx.stroke();
+            }
+
+            if (isBearingSpinning) {
+                bAngle += parseFloat(bearingSpeedInput.value);
+            }
+
+            requestAnimationFrame(drawBearing);
+        }
+
+        function toggleBearingSpin() {
+            isBearingSpinning = !isBearingSpinning;
+        }
+
+        // --- 2. Визуализация болта и гайки ---
+        const boltCanvas = document.getElementById('boltCanvas');
+        const boltCtx = boltCanvas.getContext('2d');
+        const nutSlider = document.getElementById('nutSlider');
+
+        function drawBoltAndNut() {
+            boltCtx.clearRect(0, 0, boltCanvas.width, boltCanvas.height);
+
+            const cx = boltCanvas.width / 2;
+            const startY = 30;
+            const boltLength = 180;
+            const shaftWidth = 40;
+            const headWidth = 90;
+            const headHeight = 35;
+
+            // Головка болта (шестигранник в разрезе/профиле)
+            boltCtx.fillStyle = '#38bdf8';
+            boltCtx.beginPath();
+            boltCtx.moveTo(cx - headWidth/2, startY);
+            boltCtx.lineTo(cx + headWidth/2, startY);
+            boltCtx.lineTo(cx + headWidth/2 - 10, startY + headHeight);
+            boltCtx.lineTo(cx - headWidth/2 + 10, startY + headHeight);
+            boltCtx.closePath();
+            boltCtx.fill();
+            boltCtx.strokeStyle = '#f8fafc';
+            boltCtx.lineWidth = 2;
+            boltCtx.stroke();
+
+            // Стержень болта с резьбой
+            const shaftTop = startY + headHeight;
+            boltCtx.fillStyle = '#334155';
+            boltCtx.fillRect(cx - shaftWidth/2, shaftTop, shaftWidth, boltLength);
+            boltCtx.strokeStyle = '#64748b';
+            boltCtx.lineWidth = 1.5;
+            boltCtx.strokeRect(cx - shaftWidth/2, shaftTop, shaftWidth, boltLength);
+
+            // Нарезка резьбы (углубления)
+            boltCtx.strokeStyle = '#38bdf8';
+            boltCtx.lineWidth = 2;
+            for (let y = shaftTop + 10; y < shaftTop + boltLength - 10; y += 14) {
+                boltCtx.beginPath();
+                boltCtx.moveTo(cx - shaftWidth/2, y);
+                boltCtx.lineTo(cx + shaftWidth/2, y + 7);
+                boltCtx.stroke();
+            }
+
+            // Положение гайки зависит от ползунка (slider от 0 до 1)
+            const progress = parseFloat(nutSlider.value);
+            const nutY = shaftTop + 20 + progress * (boltLength - 60);
+            const nutWidth = 60;
+            const nutHeight = 30;
+
+            // Гайка
+            boltCtx.fillStyle = '#f97316';
+            boltCtx.fillRect(cx - nutWidth/2, nutY, nutWidth, nutHeight);
+            boltCtx.strokeStyle = '#f8fafc';
+            boltCtx.lineWidth = 2;
+            boltCtx.strokeRect(cx - nutWidth/2, nutY, nutWidth, nutHeight);
+
+            // Текст резьбы на гайке
+            boltCtx.fillStyle = '#ffffff';
+            boltCtx.font = 'bold 12px sans-serif';
+            boltCtx.textAlign = 'center';
+            boltCtx.fillText('M12', cx, nutY + 20);
+
+            requestAnimationFrame(drawBoltAndNut);
+        }
+
+        // --- Логика мультиязычности ---
+        function toggleLanguage() {
+            const html = document.getElementById('html-root');
+            const btn = document.getElementById('langToggle');
+            const currentLang = html.getAttribute('lang');
+            const newLang = currentLang === 'ru' ? 'en' : 'ru';
+            
+            html.setAttribute('lang', newLang);
+            btn.textContent = newLang === 'ru' ? 'EN' : 'RU';
+            localStorage.setItem('site-lang', newLang);
+
+            document.querySelectorAll('[data-ru]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${newLang}`);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('site-lang') || 'ru';
+            if (savedLang === 'en') {
+                document.getElementById('html-root').setAttribute('lang', 'en');
+                document.getElementById('langToggle').textContent = 'RU';
+                document.querySelectorAll('[data-ru]').forEach(el => {
+                    el.innerHTML = el.getAttribute('data-en');
+                });
+            }
+            drawBearing();
+            drawBoltAndNut();
+        });
+    </script>
+</body>
+</html>
