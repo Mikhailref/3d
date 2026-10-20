@@ -1,0 +1,45 @@
+{
+    "site_info": {
+      "title": "3D-Печать и FreeCAD",
+      "version": "1.0.0",
+      "last_updated": "2026-10-20"
+    },
+    "projects": [
+      {
+        "id": 1,
+        "title_ru": "Прецизионные слесарные тиски",
+        "title_en": "Precision Mechanical Vise",
+        "desc_ru": "Многодетальная сборная модель механики во FreeCAD с использованием мастер-эскизов и VarSets.",
+        "desc_en": "Multi-part mechanical assembly model in FreeCAD using Master Sketches and VarSets.",
+        "icon": "🔩",
+        "tags": ["FreeCAD", "PETG", "Механика"]
+      },
+      {
+        "id": 2,
+        "title_ru": "Переходник вентиляции",
+        "title_en": "Ducting Adapter",
+        "desc_ru": "Адаптер для воздуховода с фланцем под крепеж. Точный расчет технологических допусков.",
+        "desc_en": "Ducting adapter with mounting flange. Precise tolerance calculations.",
+        "icon": "💨",
+        "tags": ["FreeCAD", "PETG", "Вентиляция"]
+      },
+      {
+        "id": 3,
+        "title_ru": "Защитный корпус контроллера",
+        "title_en": "Controller Enclosure",
+        "desc_ru": "Корпус с защелками и отверстиями под кабельные вводы для автоматики.",
+        "desc_en": "Enclosure with snap-fits and cable pass-throughs for automation.",
+        "icon": "📦",
+        "tags": ["FreeCAD", "PLA", "Корпус"]
+      }
+    ],
+    "quick_tips": [
+      {
+        "id": 1,
+        "topic_ru": "Сушка PETG",
+        "topic_en": "PETG Drying",
+        "text_ru": "Сушите PETG 4-6 часов при 60°C для устранения нитей и пузырей.",
+        "text_en": "Dry PETG for 4-6 hours at 60°C to eliminate stringing and bubbles."
+      }
+    ]
+  }
